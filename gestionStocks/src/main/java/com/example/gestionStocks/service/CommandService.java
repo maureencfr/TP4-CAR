@@ -30,4 +30,26 @@ public class CommandService {
     public ArticleEntity getArticleById(Long id){
         return repo.findById(id).orElse(null);
     }
+
+    public void updateStockFromCommand(String message) {
+        String[] parts = message.split(";");
+        if (parts.length < 2) return;
+
+            for (int i = 1; i < parts.length; i++) {
+                String[] productData = parts[i].split(",");
+                if (productData.length != 2) continue;
+
+                String productName = productData[0];
+                int quantityOrdered = Integer.parseInt(productData[1]);
+
+                ArticleEntity article = repo.findByArticle(productName)
+                        .orElse(null);
+
+                if(article != null){
+                    article.setQuantite(article.getQuantite() - quantityOrdered);
+                    repo.save(article);
+                }
+
+            }
+    }
 }
