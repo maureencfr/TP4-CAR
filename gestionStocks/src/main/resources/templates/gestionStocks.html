@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion du Stock</title>
+</head>
+<body>
+<h1>Stock des Articles</h1>
+<table>
+    <tr>
+        <th>Article</th>
+        <th>Quantité</th>
+    </tr>
+    <tr th:each="command : ${commands}">
+        <td th:text="${command.article}"></td>
+        <td th:text="${command.quantite}"></td>
+    </tr>
+</table>
+<br>
+<a href="javascript:location.reload();">Rafraîchir la page</a>
+<hr>
+<h2>Gestion du Réapprovisionnement</h2>
+<form action="/store/reappro" method="post">
+    <button type="submit">Réappro du Stock</button>
+</form>
+</body>
+</html>
